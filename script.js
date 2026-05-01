@@ -4,6 +4,7 @@
 
 const themeToggle = document.getElementById('themeToggle');
 const body = document.body;
+const navbar = document.querySelector('.navbar');
 
 // Check for saved theme preference or default to light mode
 const currentTheme = localStorage.getItem('theme') || 'light';
@@ -32,12 +33,39 @@ hamburger.addEventListener('click', () => {
 });
 
 // Close menu when a link is clicked
+const navLinks = document.querySelectorAll('.navbar-link');
+const sections = document.querySelectorAll('section[id]');
+
 document.querySelectorAll('.navbar-link').forEach(link => {
     link.addEventListener('click', () => {
         navbarMenu.classList.remove('active');
         hamburger.classList.remove('active');
     });
 });
+
+function updateActiveNav() {
+    const scrollPosition = window.scrollY + window.innerHeight / 3;
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === `#${sectionId}`) {
+                    link.classList.add('active');
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                }
+            });
+        }
+    });
+}
+
+updateActiveNav();
+window.addEventListener('scroll', updateActiveNav);
 
 // ============================================
 // BACK TO TOP BUTTON
@@ -46,6 +74,12 @@ document.querySelectorAll('.navbar-link').forEach(link => {
 const backToTop = document.getElementById('backToTop');
 
 window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 30) {
+        navbar?.classList.add('scrolled');
+    } else {
+        navbar?.classList.remove('scrolled');
+    }
+
     if (window.pageYOffset > 300) {
         backToTop.classList.remove('hidden');
     } else {

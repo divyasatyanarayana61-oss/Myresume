@@ -11,22 +11,24 @@
     <nav class="navbar">
         <div class="navbar-container">
             <a href="#home" class="navbar-logo">Portfolio</a>
+            <div class="navbar-controls">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+                <div class="hamburger" aria-label="Open navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
             <ul class="navbar-menu">
                 <li><a href="#home" class="navbar-link">Home</a></li>
-                <li><a href="#about" class="navbar-link">About</a></li>
-                <li><a href="#experience" class="navbar-link">Experience</a></li>
+                <li><a href="#about" class="navbar-link about-link yellow-link">About</a></li>
+                <li><a href="#experience" class="navbar-link experience-link red-link">Experience</a></li>
                 <li><a href="#education" class="navbar-link">Education</a></li>
                 <li><a href="#projects" class="navbar-link">Projects</a></li>
                 <li><a href="#skills" class="navbar-link">Skills</a></li>
                 <li><a href="#certifications" class="navbar-link">Certifications</a></li>
                 <li><a href="#contact" class="navbar-link">Contact</a></li>
-                <button class="theme-toggle" id="themeToggle">🌙</button>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </div>
     </nav>
 
@@ -34,6 +36,7 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <h1 class="hero-title">Hi, I'm [Your Name]</h1>
+            <span class="hero-badge">Crafting modern web apps with polished UI and strong UX.</span>
             <p class="hero-subtitle">Full Stack Developer | Tech Enthusiast | Problem Solver</p>
             <p class="hero-description">
                 I create beautiful, functional web experiences and solve complex problems with clean code.
@@ -42,11 +45,36 @@
                 <a href="#projects" class="btn btn-primary">View My Work</a>
                 <a href="#contact" class="btn btn-secondary">Get In Touch</a>
             </div>
+            <div class="hero-highlights">
+                <span class="highlight-pill">5+ years experience</span>
+                <span class="highlight-pill">20+ projects launched</span>
+                <span class="highlight-pill">Design-driven solutions</span>
+            </div>
         </div>
         <div class="hero-image">
             <div class="profile-circle">
                 <!-- Add your profile image here -->
                 <img src="https://via.placeholder.com/300" alt="Profile Picture">
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="highlights">
+        <div class="container">
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <h3>Design-led development</h3>
+                    <p>Bring modern interfaces and refined brand visuals together with user-friendly interactions.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Performance focus</h3>
+                    <p>Build fast, responsive pages with polished animations and reliable cross-device experiences.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>Collaborative workflow</h3>
+                    <p>Work closely with stakeholders to translate goals into practical, scalable web solutions.</p>
+                </div>
             </div>
         </div>
     </section>
