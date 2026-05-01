@@ -35,6 +35,7 @@ hamburger.addEventListener('click', () => {
 // Close menu when a link is clicked
 const navLinks = document.querySelectorAll('.navbar-link');
 const sections = document.querySelectorAll('section[id]');
+const downloadResumeButton = document.getElementById('downloadResumeButton');
 
 document.querySelectorAll('.navbar-link').forEach(link => {
     link.addEventListener('click', () => {
@@ -42,6 +43,65 @@ document.querySelectorAll('.navbar-link').forEach(link => {
         hamburger.classList.remove('active');
     });
 });
+
+if (downloadResumeButton) {
+    downloadResumeButton.addEventListener('click', async (event) => {
+        event.preventDefault();
+
+        const resumeUrl = 'resume/sindhu-resume.pdf';
+        const downloadFileName = 'Sai-Divya-Andaluri-resume.pdf';
+
+        try {
+            const response = await fetch(resumeUrl);
+            if (!response.ok) {
+                throw new Error('Failed to load resume PDF.');
+            }
+
+            const existingPdfBytes = await response.arrayBuffer();
+            const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+            const pages = pdfDoc.getPages();
+            const firstPage = pages[0];
+            const { width, height } = firstPage.getSize();
+            const font = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+            const newText = 'Sai Divya Andaluri';
+            const fontSize = 26;
+            const textWidth = font.widthOfTextAtSize(newText, fontSize);
+            const x = 60;
+            const y = height - 130;
+
+            firstPage.drawRectangle({
+                x: x - 14,
+                y: y - 8,
+                width: textWidth + 28,
+                height: fontSize + 12,
+                color: PDFLib.rgb(1, 1, 1)
+            });
+
+            firstPage.drawText(newText, {
+                x,
+                y,
+                size: fontSize,
+                font,
+                color: PDFLib.rgb(0.11, 0.11, 0.11)
+            });
+
+            const pdfBytes = await pdfDoc.save();
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const blobUrl = URL.createObjectURL(blob);
+
+            const tempLink = document.createElement('a');
+            tempLink.href = blobUrl;
+            tempLink.download = downloadFileName;
+            document.body.appendChild(tempLink);
+            tempLink.click();
+            tempLink.remove();
+            URL.revokeObjectURL(blobUrl);
+        } catch (error) {
+            console.error(error);
+            window.location.href = resumeUrl;
+        }
+    });
+}
 
 function updateActiveNav() {
     const scrollPosition = window.scrollY + window.innerHeight / 3;
